@@ -28,7 +28,7 @@ metadata:
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
     repository: https://github.com/storageos/operator
     support: StorageOS, Inc
-  name: storageosoperator.v2.5.0-beta.1
+  name: storageosoperator.v2.5.0-beta.4
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -264,27 +264,6 @@ spec:
           - validatingwebhookconfigurations
           verbs:
           - '*'
-        - apiGroups:
-          - api.storageos.com
-          resources:
-          - nodes
-          - volumes
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - watch
-        - apiGroups:
-          - api.storageos.com
-          resources:
-          - nodes/status
-          - volumes/status
-          verbs:
-          - get
-          - patch
-          - update
         - apiGroups:
           - apiextensions.k8s.io
           resources:
@@ -541,108 +520,6 @@ spec:
           - list
           - watch
         - apiGroups:
-          - ""
-          resources:
-          - configmaps
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
-        - apiGroups:
-          - ""
-          resources:
-          - configmaps/status
-          verbs:
-          - get
-          - patch
-          - update
-        - apiGroups:
-          - ""
-          resources:
-          - namespaces
-          verbs:
-          - get
-          - list
-          - watch
-        - apiGroups:
-          - ""
-          resources:
-          - nodes
-          - persistentvolumeclaims
-          - persistentvolumes
-          - pods
-          verbs:
-          - list
-          - watch
-        - apiGroups:
-          - api.storageos.com
-          resources:
-          - nodes
-          - volumes
-          verbs:
-          - list
-          - watch
-        - apiGroups:
-          - apps
-          resources:
-          - daemonsets
-          - deployments
-          - replicasets
-          - statefulsets
-          verbs:
-          - list
-          - watch
-        - apiGroups:
-          - coordination.k8s.io
-          resources:
-          - leases
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
-        - apiGroups:
-          - storage.k8s.io
-          resources:
-          - storageclasses
-          - volumeattachments
-          verbs:
-          - list
-          - watch
-        - apiGroups:
-          - storageos.com
-          resources:
-          - storageosportals
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
-        - apiGroups:
-          - storageos.com
-          resources:
-          - storageosportals/finalizers
-          verbs:
-          - update
-        - apiGroups:
-          - storageos.com
-          resources:
-          - storageosportals/status
-          verbs:
-          - get
-          - patch
-          - update
-        - apiGroups:
           - events.k8s.io
           resources:
           - events
@@ -782,7 +659,7 @@ spec:
   selector:
     matchLabels:
       operated-by: storageosoperator
-  version: 2.5.0-beta.1
+  version: 2.5.0-beta.4
   webhookdefinitions:
   - admissionReviewVersions:
     - v1
