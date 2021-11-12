@@ -118,9 +118,12 @@ rules:
   - csi.storage.k8s.io
   resources:
   - csidrivers
+  - csistoragecapacities
   verbs:
   - create
   - delete
+  - list
+  - watch
 - apiGroups:
   - policy
   resources:
@@ -159,6 +162,7 @@ rules:
   - csidrivers
   - csinodeinfos
   - csinodes
+  - csistoragecapacities
   - storageclasses
   - volumeattachments
   - volumeattachments/status
