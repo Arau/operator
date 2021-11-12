@@ -265,6 +265,27 @@ spec:
           verbs:
           - '*'
         - apiGroups:
+          - api.storageos.com
+          resources:
+          - nodes
+          - volumes
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - watch
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - nodes/status
+          - volumes/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
           - apiextensions.k8s.io
           resources:
           - customresourcedefinitions
@@ -385,6 +406,239 @@ spec:
           - list
           - watch
         - apiGroups:
+          - ""
+          resources:
+          - nodes
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          verbs:
+          - delete
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - services
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - services/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - admissionregistration.k8s.io
+          resources:
+          - mutatingwebhookconfigurations
+          - validatingwebhookconfigurations
+          verbs:
+          - '*'
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - nodes
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - watch
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - nodes/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - volumes
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - watch
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - volumes/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - storageclasses
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - volumeattachments
+          verbs:
+          - delete
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - nodes
+          - persistentvolumeclaims
+          - persistentvolumes
+          - pods
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - nodes
+          - volumes
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - daemonsets
+          - deployments
+          - replicasets
+          - statefulsets
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - storageclasses
+          - volumeattachments
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - storageos.com
+          resources:
+          - storageosportals
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - storageos.com
+          resources:
+          - storageosportals/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - storageos.com
+          resources:
+          - storageosportals/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
           - events.k8s.io
           resources:
           - events
@@ -461,10 +715,10 @@ spec:
                   periodSeconds: 10
                 resources:
                   limits:
-                    cpu: "3"
+                    cpu: "1"
                     memory: 512Mi
                   requests:
-                    cpu: 500m
+                    cpu: 50m
                     memory: 128Mi
                 securityContext:
                   allowPrivilegeEscalation: false
