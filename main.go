@@ -102,13 +102,15 @@ func main() {
 		}
 	}
 
+	defaultRestConfig := ctrl.GetConfigOrDie()
+	defaultKubeClient := kubernetes.NewForConfigOrDie(defaultRestConfig)
+
 	restConfig := ctrl.GetConfigOrDie()
 	restConfig.Timeout = time.Minute
-
-	kubeClient := kubernetes.NewForConfigOrDie(restConfig)
+	timeoutKubeClient := kubernetes.NewForConfigOrDie(restConfig)
 
 	// Get Kubernetes version.
-	kubeVersion, err := kubeClient.Discovery().ServerVersion()
+	kubeVersion, err := timeoutKubeClient.Discovery().ServerVersion()
 	if err != nil {
 		setupLog.Error(err, "unable to get Kubernetes version")
 		os.Exit(1)
@@ -120,7 +122,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	mgr, err := ctrl.NewManager(restConfig, options)
+	mgr, err := ctrl.NewManager(defaultRestConfig, options)
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
 		os.Exit(1)
@@ -203,7 +205,7 @@ func main() {
 
 	// Watch config maps and restart on change.
 	setupLog.Info("starting config map watcher")
-	watcher := watchers.NewConfigMapWatcher(kubeClient.CoreV1().ConfigMaps(currentNS))
+	watcher := watchers.NewConfigMapWatcher(defaultKubeClient.CoreV1().ConfigMaps(currentNS))
 	if err := watcher.Setup(ctx); err != nil {
 		setupLog.Error(err, "unable to set config map watcher")
 		os.Exit(1)
