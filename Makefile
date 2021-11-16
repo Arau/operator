@@ -3,7 +3,7 @@
 # To re-generate a bundle for another specific version without changing the standard setup, you can:
 # - use the VERSION as arg of the bundle target (e.g make bundle VERSION=0.0.2)
 # - use environment variables to overwrite this value (e.g export VERSION=0.0.2)
-VERSION ?= 2.5.0-beta.4
+VERSION ?= 2.5.0-beta.5
 
 # MIN_KUBE_VERSION is the build flag of minimum Kubernetes version.
 MIN_KUBE_VERSION ?= 1.18.0
