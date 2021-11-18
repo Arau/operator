@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"os"
+	"path/filepath"
 	"time"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
@@ -12,6 +13,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
+	"github.com/darkowlzz/operator-toolkit/declarative/loader"
 	"github.com/darkowlzz/operator-toolkit/telemetry/export"
 	"github.com/darkowlzz/operator-toolkit/webhook/cert"
 	"go.uber.org/zap/zapcore"
@@ -169,9 +171,16 @@ func main() {
 		setupLog.Error(err, "unable to provision certificate")
 		os.Exit(1)
 	}
+	// Set channel based on K8s version. If that channel does not exist, use default channelDir 'stable'.
+	cleanKubeVersion := version.CleanupVersion(kubeVersion.String())
+	channel := version.MajorMinor(cleanKubeVersion)
+	_, err = os.Stat(filepath.Join(loader.DefaultChannelDir, channel))
+	if err != nil {
+		channel = loader.DefaultChannelName
+	}
 
 	if err = controllers.NewStorageOSClusterReconciler(mgr).
-		SetupWithManager(mgr, version.CleanupVersion(kubeVersion.String())); err != nil {
+		SetupWithManager(mgr, cleanKubeVersion, channel); err != nil {
 		setupLog.Error(err, "unable to create controller",
 			"controller", "StorageOSCluster")
 		os.Exit(1)

@@ -16,7 +16,6 @@ import (
 
 	storageoscomv1 "github.com/storageos/operator/apis/v1"
 	"github.com/storageos/operator/controllers/storageoscluster"
-	"github.com/storageos/operator/internal/version"
 )
 
 const instrumentationName = "github.com/storageos/operator/controllers"
@@ -61,18 +60,12 @@ func NewStorageOSClusterReconciler(mgr ctrl.Manager) *StorageOSClusterReconciler
 // +kubebuilder:rbac:groups=security.openshift.io,resources=securitycontextconstraints,resourceNames=privileged,verbs=get;create;update;delete;use
 
 // SetupWithManager sets up the controller with the Manager.
-func (r *StorageOSClusterReconciler) SetupWithManager(mgr ctrl.Manager, kubeVersion string) error {
+func (r *StorageOSClusterReconciler) SetupWithManager(mgr ctrl.Manager, kubeVersion, channel string) error {
 	_, span, _, log := instrumentation.Start(context.Background(), "StorageosCluster.SetupWithManager")
 	defer span.End()
 
-	// Set channel 1.18 if k8s version is not greater or equal to v1.19.0
-	channel := "stable"
-	if stable := version.IsSupported(kubeVersion, "v1.19.0"); !stable {
-		channel = "1.18"
-	}
-
 	// Load manifests in an in-memory filesystem.
-	fs, err := loader.NewLoadedManifestFileSystem("channels", channel)
+	fs, err := loader.NewLoadedManifestFileSystem(loader.DefaultChannelDir, channel)
 	if err != nil {
 		return fmt.Errorf("failed to create loaded ManifestFileSystem: %w", err)
 	}
