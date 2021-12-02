@@ -520,6 +520,118 @@ spec:
           - list
           - watch
         - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - nodes
+          - persistentvolumeclaims
+          - persistentvolumes
+          - pods
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - api.storageos.com
+          resources:
+          - nodes
+          - volumes
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - daemonsets
+          - deployments
+          - replicasets
+          - statefulsets
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - storageclasses
+          - volumeattachments
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - storageos.com
+          resources:
+          - storageosclusters
+          verbs:
+          - list
+          - watch
+        - apiGroups:
+          - storageos.com
+          resources:
+          - storageosportals
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
           - events.k8s.io
           resources:
           - events
@@ -594,13 +706,7 @@ spec:
                     port: 8081
                   initialDelaySeconds: 5
                   periodSeconds: 10
-                resources:
-                  limits:
-                    cpu: "1"
-                    memory: 512Mi
-                  requests:
-                    cpu: 50m
-                    memory: 128Mi
+                resources: {}
                 securityContext:
                   allowPrivilegeEscalation: false
                 volumeMounts:
