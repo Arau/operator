@@ -40,6 +40,13 @@ spec:
         image: api-manager
         imagePullPolicy: IfNotPresent
         name: api-manager
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 5m
+            memory: 50Mi
         ports:
         - containerPort: 8080
           name: metrics
